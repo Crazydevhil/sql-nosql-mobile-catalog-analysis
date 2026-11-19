@@ -1,0 +1,12 @@
+# GitHub Linguist Language Override Configuration
+# By default, GitHub classifies .sql as "data" and hides it from the repository language bar.
+# linguist-detectable=true forces GitHub Linguist to track and display SQL in the language breakdown.
+
+*.sql linguist-detectable=true
+*.sql linguist-language=SQL
+
+*.py linguist-detectable=true
+*.py linguist-language=Python
+
+*.js linguist-detectable=true
+*.js linguist-language=JavaScript
