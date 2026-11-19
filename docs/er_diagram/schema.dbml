@@ -1,0 +1,84 @@
+// ============================================================
+// Database Markup Language (DBML) Schema
+// Mobile Catalog Analysis — NMIMS Mumbai
+// Use at: https://dbdiagram.io
+// ============================================================
+
+Table brand {
+  brand_id int [pk, increment]
+  brand_name varchar [not null, unique]
+}
+
+Table processor {
+  processor_id int [pk, increment]
+  processor_brand varchar [not null]
+  num_cores tinyint
+  processor_speed decimal
+}
+
+Table os {
+  os_id int [pk, increment]
+  os_name varchar [not null, unique]
+}
+
+Table connectivity {
+  connectivity_id int [pk, increment]
+  has_5g boolean [default: 0]
+  has_nfc boolean [default: 0]
+  has_ir_blaster boolean [default: 0]
+}
+
+Table battery {
+  battery_id int [pk, increment]
+  battery_capacity int
+  fast_charging_available boolean [default: 0]
+  fast_charging decimal
+}
+
+Table screen {
+  screen_id int [pk, increment]
+  screen_size decimal
+  refresh_rate smallint
+  resolution_width smallint
+  resolution_height smallint
+}
+
+Table memory {
+  memory_id int [pk, increment]
+  ram_capacity smallint
+  internal_memory smallint
+  extended_memory_available boolean [default: 0]
+  extended_upto smallint
+}
+
+Table camera {
+  camera_id int [pk, increment]
+  num_rear_cameras tinyint
+  num_front_cameras tinyint
+  primary_camera_rear decimal
+  primary_camera_front decimal
+}
+
+Table phone {
+  phone_id int [pk, increment]
+  model varchar [not null]
+  price decimal
+  rating decimal
+  brand_id int [ref: > brand.brand_id]
+  processor_id int [ref: > processor.processor_id]
+  os_id int [ref: > os.os_id]
+  connectivity_id int [ref: > connectivity.connectivity_id]
+  battery_id int [ref: > battery.battery_id]
+  screen_id int [ref: > screen.screen_id]
+  memory_id int [ref: > memory.memory_id]
+  camera_id int [ref: > camera.camera_id]
+}
+
+Table price_analysis {
+  brand_id int [pk, ref: > brand.brand_id]
+  brand_name varchar
+  avg_price decimal
+  min_price decimal
+  max_price decimal
+  model_count int
+}
